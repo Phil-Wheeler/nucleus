@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Nucleus.Models;
 
 namespace Nucleus.Data
 {
@@ -13,6 +14,12 @@ namespace Nucleus.Data
             : base(options)
         {
         }
+
+
+        public DbSet<Badge> Badges { get; set; }
+        public DbSet<UserBadge> UserBadges { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

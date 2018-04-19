@@ -1,35 +1,81 @@
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+
+
+/* ====== BASE TYPOGRAPHY ====== */
+h1, .h1 { font: 700 4.5rem/1.4 'Scope One', serif; }
+h2, .h2 { }
+h3, .h3 { font: 300 2rem/1.2 'Scope One', serif; }
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4 { margin-bottom: 0.25rem; }
+
+
+
+/* ====== COLOURS ====== */
+
+.blue { background-color: rgb(52, 152, 219); color: rgb(174, 214, 241); }
+.banner h1, .contrast { color: rgba(255, 255, 255, 1); }
+.business-case p { color: rgb(153, 153, 153); font: 300 1.2rem/1.6 'Scope One', serif; }
+
+.style2 { background: #36D1DC; background: -webkit-linear-gradient(150%, rgb(52, 152, 219) 50%, rgb(54, 208, 220)); background: linear-gradient(150deg, rgb(52, 152, 219) 50%, rgb(54, 208, 220)); }
+    .style2 p { color: rgb(174, 214, 241); }
+
+
+
+/* ====== BLOCK CONTAINER ELEMENTS ====== */
+
+.banner { 
+    padding: 8em 0 6em 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-image: url("/images/banner.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top: 0;
+    min-height: 100vh;
+    height: 100vh !important;
+    margin-top: -4rem;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
+.banner::before { background-color: rgba(0, 0, 0, 1); content: ''; display: block; height: 100%; left: 0; opacity: 0.65; position: absolute; top: 0; transition-delay: 1.25s; width: 100%; z-index: 1; }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.banner > .row {
+    transform: scale(1.0);
+    transition: opacity 1s ease, transform 1s ease;
+    opacity: 1;
+    position: relative;
+    z-index: 2;
 }
+.banner header { margin-bottom: 4rem; }
+.banner .header { opacity: 1; position: relative; transition: opacity 1s ease, transform 1s ease; z-index: 1; }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
+.business-case { display: flex; }
+.section-block { padding: 6rem 0 4rem; position: relative; }
+    .section-block .inner { margin: 0 auto; width: 80%; }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
+
+
+/* ====== CONTAINER ELEMENTS ====== */
+.business-case div:first-of-type { flex-basis: 67%; }
+
+
+
+/* ====== MEDIA ELEMENTS ====== */
+
+figure.round img { border-radius: 100%; }
+figure.fit { align-self: flex-start; }
+figure.round.fit { border-radius: 100%; box-shadow: 0px 0px 0px 7px rgba(255, 255, 255, 0.8), 0px 0px 0px 8px rgba(0, 0, 0, 0.1); }
+
+
+/* ====== FOUNDATION OVERRIDES ====== */
+
+.title-bar { background-color: transparent; display: flex; width: 100%; }
+.title-bar-left { display: flex; align-items: center; }
+.title-bar-right { display: flex; justify-content: flex-end; flex-grow: 1; }
+.sticky-container { z-index: 3; }
+
+.button { border-radius: 4px; }

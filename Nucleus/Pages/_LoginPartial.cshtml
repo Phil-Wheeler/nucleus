@@ -18,8 +18,31 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-page="/Account/Register">Register</a></li>
-        <li><a asp-page="/Account/Login">Log in</a></li>
-    </ul>
+    <div data-sticky-container>
+        <div class="title-bar" data-sticky data-options="marginTop:0;" data-top-anchor="main:top">
+            <div class="title-bar-left">
+                <span class="title-bar-title">Sticky Navigation</span>
+            </div>
+            <div class="title-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li>
+                        <a asp-page="/Account/Register">Register</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Account/Login">Log in</a>
+                    </li>
+                    <li>
+                        <a href="#">Item 3</a>
+                        <ul class="menu">
+                            <li><a href="#">Item 2A</a></li>
+                            <li><a href="#">Item 2B</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Item 4</a></li>
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
 }

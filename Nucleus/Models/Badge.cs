@@ -11,11 +11,7 @@ namespace Nucleus.Models
         public int Id { get; set; }
         public string Text { get; set; }
         public string Glyph { get; set; }
-    }
-
-    public class UserBadge
-    {
-        public virtual ApplicationUser User { get; set; }
-        public virtual Badge Badge { get; set; }
+        
+        public virtual ICollection<ApplicationUser> User { get; set; }
     }
 }

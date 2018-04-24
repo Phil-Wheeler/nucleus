@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Nucleus.Models;
 
 namespace Nucleus.Data
 {
@@ -13,6 +14,8 @@ namespace Nucleus.Data
         public string Company { get; set; }
         public string Bio { get; set; }
         public string PersonalSite { get; set; }
+
+        public virtual ICollection<Badge> Badges { get; set; }
     }
 
     public class UserSocialNetwork

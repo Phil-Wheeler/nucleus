@@ -17,7 +17,6 @@ namespace Nucleus.Data
 
 
         public DbSet<Badge> Badges { get; set; }
-        public DbSet<UserBadge> UserBadges { get; set; }
 
         public DbSet<UserSocialNetwork> SocialNetworks { get; set; }
 

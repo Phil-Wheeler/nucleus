@@ -2,10 +2,12 @@
 
 /* ====== BASE TYPOGRAPHY ====== */
 h1, .h1 { font: 700 4.5rem/1.4 'Scope One', serif; }
-h2, .h2 { }
+h2, .h2 { font: 700 3rem/1.3 'Scope One', serif; }
 h3, .h3 { font: 300 2rem/1.2 'Scope One', serif; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 { margin-bottom: 0.25rem; }
+
+p { font: 300 1.1rem/1.100 'Scope One', serif; }
 
 
 
@@ -15,6 +17,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 { margin-bottom: 0.25rem; }
 .banner h1, .contrast { color: rgba(255, 255, 255, 1); }
 .business-case p { color: rgb(153, 153, 153); font: 300 1.2rem/1.6 'Scope One', serif; }
 
+.style1 { color: rgba(153, 153, 153, 1); }
 .style2 { background: #36D1DC; background: -webkit-linear-gradient(150%, rgb(52, 152, 219) 50%, rgb(54, 208, 220)); background: linear-gradient(150deg, rgb(52, 152, 219) 50%, rgb(54, 208, 220)); }
     .style2 p { color: rgb(174, 214, 241); }
 
@@ -55,12 +58,14 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 { margin-bottom: 0.25rem; }
 
 .business-case { display: flex; }
 .section-block { padding: 6rem 0 4rem; position: relative; }
-    .section-block .inner { margin: 0 auto; width: 80%; }
+.inner { margin: 0 auto; width: 80%; }
 
 
 
 /* ====== CONTAINER ELEMENTS ====== */
+nav .title-bar:not(.is-anchored) { background: rgba(0, 0, 0, 0.75); }
 .business-case div:first-of-type { flex-basis: 67%; }
+.flex { display: flex; justify-content: space-around; }
 
 
 
@@ -69,6 +74,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 { margin-bottom: 0.25rem; }
 figure.round img { border-radius: 100%; }
 figure.fit { align-self: flex-start; }
 figure.round.fit { border-radius: 100%; box-shadow: 0px 0px 0px 7px rgba(255, 255, 255, 0.8), 0px 0px 0px 8px rgba(0, 0, 0, 0.1); }
+
+.flex-3 .col { flex-basis: 30%; }
 
 
 /* ====== FOUNDATION OVERRIDES ====== */

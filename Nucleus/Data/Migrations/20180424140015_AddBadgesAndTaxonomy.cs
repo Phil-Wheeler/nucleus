@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Nucleus.Data.Migrations
 {
-    public partial class BadgeLinkTable : Migration
+    public partial class AddBadgesAndTaxonomy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,6 +76,18 @@ namespace Nucleus.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TagSets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TagSets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tracks",
                 columns: table => new
                 {
@@ -93,23 +105,43 @@ namespace Nucleus.Data.Migrations
                 columns: table => new
                 {
                     BadgeId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
+                    UserId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBadge", x => new { x.BadgeId, x.ApplicationUserId });
-                    table.ForeignKey(
-                        name: "FK_UserBadge_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_UserBadge", x => new { x.BadgeId, x.UserId });
                     table.ForeignKey(
                         name: "FK_UserBadge_Badges_BadgeId",
                         column: x => x.BadgeId,
                         principalTable: "Badges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserBadge_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    TagSetId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tags_TagSets_TagSetId",
+                        column: x => x.TagSetId,
+                        principalTable: "TagSets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -132,9 +164,14 @@ namespace Nucleus.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserBadge_ApplicationUserId",
+                name: "IX_Tags_TagSetId",
+                table: "Tags",
+                column: "TagSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserBadge_UserId1",
                 table: "UserBadge",
-                column: "ApplicationUserId");
+                column: "UserId1");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUserTokens_AspNetUsers_UserId",
@@ -155,10 +192,16 @@ namespace Nucleus.Data.Migrations
                 name: "SocialNetworks");
 
             migrationBuilder.DropTable(
+                name: "Tags");
+
+            migrationBuilder.DropTable(
                 name: "Tracks");
 
             migrationBuilder.DropTable(
                 name: "UserBadge");
+
+            migrationBuilder.DropTable(
+                name: "TagSets");
 
             migrationBuilder.DropTable(
                 name: "Badges");

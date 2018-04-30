@@ -57,7 +57,7 @@ namespace Nucleus.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
+            ReturnUrl = "/Account/Manage";
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

@@ -15,7 +15,7 @@ namespace Nucleus.Data
         public string Bio { get; set; }
         public string PersonalSite { get; set; }
 
-        public virtual ICollection<Badge> Badges { get; set; }
+        public virtual ICollection<UserBadge> UserBadges { get; set; }
     }
 
     public class UserSocialNetwork

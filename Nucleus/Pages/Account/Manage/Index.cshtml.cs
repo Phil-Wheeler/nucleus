@@ -35,19 +35,21 @@ namespace Nucleus.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
-        [BindProperty]
-        public InputModel Input { get; set; }
+        // [BindProperty]
+        // public InputModel Input { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+        public ApplicationUser Input { get; set; }
 
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-        }
+        // public class InputModel
+        // {
+        //     [Required]
+        //     [EmailAddress]
+        //     public string Email { get; set; }
+
+        //     [Phone]
+        //     [Display(Name = "Phone number")]
+        //     public string PhoneNumber { get; set; }
+        // }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -59,11 +61,12 @@ namespace Nucleus.Pages.Account.Manage
 
             Username = user.UserName;
 
-            Input = new InputModel
-            {
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber
-            };
+            // Input = new InputModel
+            // {
+            //     Email = user.Email,
+            //     PhoneNumber = user.PhoneNumber
+            // };
+            Input = user;
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
@@ -99,6 +102,12 @@ namespace Nucleus.Pages.Account.Manage
                 {
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
+            }
+
+            var setNameResult = await _userManager.UpdateAsync(Input);
+            if (!setNameResult.Succeeded)
+            {
+                throw new ApplicationException($"Unexpected error updating user details, etc.");
             }
 
             StatusMessage = "Your profile has been updated";

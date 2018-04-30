@@ -60,13 +60,17 @@ p { font: 300 1.1rem/1.100 'Scope One', serif; }
 .section-block { padding: 6rem 0 4rem; position: relative; }
 .inner { margin: 0 auto; width: 80%; }
 
+header { align-items: center; display: flex; flex-flow: column wrap; }
+
 
 
 /* ====== CONTAINER ELEMENTS ====== */
 nav .title-bar:not(.is-anchored) { background: rgba(0, 0, 0, 0.75); }
 .business-case div:first-of-type { flex-basis: 67%; }
 .flex { display: flex; justify-content: space-around; }
-
+.flex.generic { justify-content: space-between; }
+.flex.generic > div { flex-grow: 1; }
+aside { margin-left: 2rem; order: 1; }
 
 
 /* ====== MEDIA ELEMENTS ====== */

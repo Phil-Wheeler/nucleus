@@ -11,8 +11,8 @@ using System;
 namespace Nucleus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180430012848_BadgeLinkTable")]
-    partial class BadgeLinkTable
+    [Migration("20180424140015_AddBadgesAndTaxonomy")]
+    partial class AddBadgesAndTaxonomy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,6 +220,34 @@ namespace Nucleus.Data.Migrations
                     b.ToTable("Badges");
                 });
 
+            modelBuilder.Entity("Nucleus.Models.Tag", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<Guid?>("TagSetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TagSetId");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("Nucleus.Models.TagSet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TagSets");
+                });
+
             modelBuilder.Entity("Nucleus.Models.Track", b =>
                 {
                     b.Property<int>("Id")
@@ -236,11 +264,13 @@ namespace Nucleus.Data.Migrations
                 {
                     b.Property<int>("BadgeId");
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<Guid>("UserId");
 
-                    b.HasKey("BadgeId", "ApplicationUserId");
+                    b.Property<string>("UserId1");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasKey("BadgeId", "UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserBadge");
                 });
@@ -297,17 +327,23 @@ namespace Nucleus.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("Nucleus.Models.Tag", b =>
+                {
+                    b.HasOne("Nucleus.Models.TagSet")
+                        .WithMany("Tags")
+                        .HasForeignKey("TagSetId");
+                });
+
             modelBuilder.Entity("Nucleus.Models.UserBadge", b =>
                 {
-                    b.HasOne("Nucleus.Data.ApplicationUser", "User")
-                        .WithMany("UserBadges")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Nucleus.Models.Badge", "Badge")
                         .WithMany("UserBadges")
                         .HasForeignKey("BadgeId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Nucleus.Data.ApplicationUser", "User")
+                        .WithMany("UserBadges")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

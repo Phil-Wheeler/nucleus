@@ -71,6 +71,7 @@ nav .title-bar:not(.is-anchored) { background: rgba(0, 0, 0, 0.75); }
 .flex.generic { justify-content: space-between; }
 .flex.generic > div { flex-grow: 1; }
 aside { margin-left: 2rem; order: 1; }
+aside nav { background: rgba(0, 0, 0, 0.075); border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 4px; padding: 0.75em 1em; }
 
 
 /* ====== MEDIA ELEMENTS ====== */
@@ -80,6 +81,20 @@ figure.fit { align-self: flex-start; }
 figure.round.fit { border-radius: 100%; box-shadow: 0px 0px 0px 7px rgba(255, 255, 255, 0.8), 0px 0px 0px 8px rgba(0, 0, 0, 0.1); }
 
 .flex-3 .col { flex-basis: 30%; }
+
+
+/* ====== FORM ELEMENTS ====== */
+input[type="text"], input[type="password"], input[type="email"], select {
+    height: 2.75em; background: rgba(0, 0, 0, 0.075); border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.1); color: rgb(0, 0, 0);
+}
+
+textarea {
+    background: rgba(0, 0, 0, 0.075); border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.1); color: rgb(0, 0, 0);
+    padding: 0.75em 1em;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select, textarea { font: 300 0.9em/1.1 'Scope One'; }
+
 
 
 /* ====== FOUNDATION OVERRIDES ====== */

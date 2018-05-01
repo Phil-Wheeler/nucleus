@@ -38,6 +38,8 @@ namespace Nucleus.Pages.Account.Manage
         // [BindProperty]
         // public InputModel Input { get; set; }
 
+
+        [BindProperty]
         public ApplicationUser Input { get; set; }
 
         // public class InputModel
@@ -104,8 +106,15 @@ namespace Nucleus.Pages.Account.Manage
                 }
             }
 
-            var setNameResult = await _userManager.UpdateAsync(Input);
-            if (!setNameResult.Succeeded)
+            user.Firstname = Input.Firstname;
+            user.Lastname = Input.Lastname;
+            user.Bio = Input.Bio;
+            user.Company = Input.Company;
+            user.JobTitle = Input.JobTitle;
+            user.PersonalSite = Input.PersonalSite;
+            
+            var updateProfileResult = await _userManager.UpdateAsync(user);
+            if (!updateProfileResult.Succeeded)
             {
                 throw new ApplicationException($"Unexpected error updating user details, etc.");
             }

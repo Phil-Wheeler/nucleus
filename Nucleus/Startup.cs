@@ -63,6 +63,8 @@ namespace Nucleus
             app.UseAuthentication();
 
             app.UseMvc();
+
+            //DbSeeder.Seed(app);
         }
     }
 }

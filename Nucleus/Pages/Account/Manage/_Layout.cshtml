@@ -1,0 +1,39 @@
+﻿@{ 
+    Layout = "/Pages/_Layout.cshtml";
+}
+
+
+<!-- Main -->
+<div id="main">
+
+    <!-- Section -->
+    <section class="section-block style1">
+        <header>
+            <h2>Manage your account</h2>
+
+            <h4>Change your account settings</h4>
+            <hr />
+        </header>
+        <div class="inner">
+
+
+            <div class="flex generic">
+                <aside>
+                    @await Html.PartialAsync("_ManageNav")
+                </aside>
+               @RenderBody()
+            </div>
+
+
+        </div>
+    </section>
+</div>
+
+
+
+
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+        

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 namespace Nucleus.Models
 {
     /// <summary>
-    /// Tags are a taxonomical collection intended to describe personal circumstances such as current or aspirational roles, community allyships, etc.
+    /// Tags are a taxonomical collection intended to describe personal circumstances 
+    /// such as current or aspirational roles, community allyships, etc.
     /// </summary>
     public class Tag
     {

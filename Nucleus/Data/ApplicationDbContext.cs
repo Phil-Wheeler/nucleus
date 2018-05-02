@@ -23,6 +23,10 @@ namespace Nucleus.Data
         public DbSet<UserSocialNetwork> SocialNetworks { get; set; }
 
         public DbSet<Track> Tracks { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<Credit> Credits { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Acceptance> Confirmations { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagSet> TagSets { get; set; }

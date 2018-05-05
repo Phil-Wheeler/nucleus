@@ -18,6 +18,6 @@ namespace Nucleus.Models
         public bool IsActive { get; set; }
         public DateTime Ends { get; set; }
 
-        public virtual ApplicationUser Member { get; set; }
+        public Guid Member { get; set; }
     }
 }

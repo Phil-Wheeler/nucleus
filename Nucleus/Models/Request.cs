@@ -14,6 +14,6 @@ namespace Nucleus.Models
         public bool IsActive { get; set; }
         public virtual Track Track { get; set; }
 
-        public virtual ApplicationUser Member { get; set; }
+        public Guid Member { get; set; }
     }
 }

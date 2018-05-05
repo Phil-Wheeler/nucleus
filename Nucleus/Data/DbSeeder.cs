@@ -8,19 +8,18 @@ namespace Nucleus.Data
 {
     public static class DbSeeder
     {
-        public static void Seed(IApplicationBuilder app)
+        public static void Seed(ApplicationDbContext appContext)
         {
             // Get an instance of the DbContext from the DI container
-            using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
-            {
+            //using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
+
                 // perform database delete
                 //context.Database.EnsureDeleted();
 
                 //... perform other seed operations
-                SeedTracks(context);
+                SeedTracks(appContext);
 
-                context.SaveChanges();
-            }
+                appContext.SaveChanges();
         }
 
         private static void SeedTracks(ApplicationDbContext context)

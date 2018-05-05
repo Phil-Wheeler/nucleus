@@ -21,6 +21,7 @@ namespace Nucleus.Pages.Orbit
         }
 
         public ICollection<Offer> Offers { get; private set; }
+        public ICollection<Track> Tracks { get; private set; }
 
         [BindProperty]
         public Offer Input { get; set; }
@@ -34,6 +35,7 @@ namespace Nucleus.Pages.Orbit
                 .Where(o => o.Member == CurrentUser)
                 .ToList();
 
+            Tracks = _context.Tracks.ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()

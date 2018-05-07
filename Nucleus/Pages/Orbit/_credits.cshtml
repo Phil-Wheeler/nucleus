@@ -1,0 +1,24 @@
+@model Nucleus.Models.Credit
+
+@{
+    var recurrenceList = new List<string>();
+
+    foreach(var val in Enum.GetValues(typeof(Nucleus.Models.Recurrence)))
+    {
+        recurrenceList.Add(val.ToString());
+    }
+
+}
+
+<div>
+    <label asp-for="Unit"></label>
+    <input type="number" asp-for="Unit">
+</div>
+<div>
+    <select asp-for="Recurrence">
+        @foreach(string Rec in recurrenceList)
+        {
+            <option value="@Rec">@Rec</option>
+        }        
+    </select>
+</div>

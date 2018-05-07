@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IdentityModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nucleus.Data;
 using Nucleus.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Nucleus.Pages.Orbit
 {
@@ -18,24 +18,42 @@ namespace Nucleus.Pages.Orbit
         public OfferModel(ApplicationDbContext context)
         {
             _context = context;
+            Input = new OfferViewModel();
         }
 
         public ICollection<Offer> Offers { get; private set; }
         public ICollection<Track> Tracks { get; private set; }
 
+        public Credit Credit { get; set; }
+
+
         [BindProperty]
-        public Offer Input { get; set; }
+        public OfferViewModel Input { get; set; }
 
         public Guid CurrentUser { get { return Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value); } }
 
 
-        public void OnGet()
+        public void OnGet(Guid? id)
         {
             Offers = _context.Offers
+                .Include(t => t.Track)
                 .Where(o => o.Member == CurrentUser)
                 .ToList();
 
             Tracks = _context.Tracks.ToList();
+
+            Credit = new Credit();
+            Input.Credit = Credit;
+
+            if (id.HasValue)
+            {
+                var selectedOffer  = _context.Offers
+                    .Include(o => o.Track)
+                    .SingleOrDefault(o => o.Id == id.Value);
+                TempData["Editing"] = selectedOffer;
+                Input.Offer = selectedOffer;
+                Input.Tracks = Tracks;
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -43,9 +61,16 @@ namespace Nucleus.Pages.Orbit
 
             if (ModelState.IsValid)
             {
-                Offer offer = Input;
-                offer.Member = CurrentUser;
-                _context.Offers.Add(offer);
+                if (Input.Offer.Id == Guid.Empty)
+                {
+                    Offer offer = Input.Offer;
+                    offer.Member = CurrentUser;
+                    _context.Offers.Add(offer);
+                }
+                else
+                {
+                    _context.Offers.Append(Input.Offer);
+                }
                 _context.SaveChanges();
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
@@ -76,5 +101,13 @@ namespace Nucleus.Pages.Orbit
             return Page();
         }
 
+    }
+
+    public class OfferViewModel
+    {
+        public Offer Offer { get; set; }
+        public IEnumerable<Track> Tracks { get; set; }
+
+        public Credit Credit { get; set; }
     }
 }

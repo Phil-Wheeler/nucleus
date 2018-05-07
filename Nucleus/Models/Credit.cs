@@ -8,7 +8,7 @@ namespace Nucleus.Models
         public int Unit { get; set; }
         public Recurrence Recurrence { get; set; }
 
-        public virtual Offer Offer { get; set; }
+        //public virtual Offer Offer { get; set; }
     }
 
     public enum Recurrence {

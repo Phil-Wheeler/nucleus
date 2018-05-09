@@ -6,13 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Nucleus.Data;
+using Nucleus.Models;
 using System;
 
 namespace Nucleus.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180424140015_AddBadgesAndTaxonomy")]
-    partial class AddBadgesAndTaxonomy
+    [Migration("20180504043324_FixMigrationDisparity")]
+    partial class FixMigrationDisparity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,7 +149,11 @@ namespace Nucleus.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("Firstname");
+
                     b.Property<string>("JobTitle");
+
+                    b.Property<string>("Lastname");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -206,6 +211,22 @@ namespace Nucleus.Data.Migrations
                     b.ToTable("SocialNetworks");
                 });
 
+            modelBuilder.Entity("Nucleus.Models.Acceptance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("AcceptedOn");
+
+                    b.Property<Guid>("AgreementId");
+
+                    b.Property<DateTime?>("EndedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Confirmations");
+                });
+
             modelBuilder.Entity("Nucleus.Models.Badge", b =>
                 {
                     b.Property<int>("Id")
@@ -218,6 +239,82 @@ namespace Nucleus.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Badges");
+                });
+
+            modelBuilder.Entity("Nucleus.Models.Credit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("OfferId");
+
+                    b.Property<int>("Recurrence");
+
+                    b.Property<int>("Unit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferId")
+                        .IsUnique()
+                        .HasFilter("[OfferId] IS NOT NULL");
+
+                    b.ToTable("Credits");
+                });
+
+            modelBuilder.Entity("Nucleus.Models.Offer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("Ends");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("MemberId");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int?>("TrackId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("TrackId");
+
+                    b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("Nucleus.Models.Request", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CreditId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("MemberId");
+
+                    b.Property<int>("Recurrence");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int?>("TrackId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreditId");
+
+                    b.HasIndex("MemberId");
+
+                    b.HasIndex("TrackId");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Nucleus.Models.Tag", b =>
@@ -264,15 +361,13 @@ namespace Nucleus.Data.Migrations
                 {
                     b.Property<int>("BadgeId");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("ApplicationUserId");
 
-                    b.Property<string>("UserId1");
+                    b.HasKey("BadgeId", "ApplicationUserId");
 
-                    b.HasKey("BadgeId", "UserId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserBadge");
+                    b.ToTable("UserBadges");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -327,6 +422,39 @@ namespace Nucleus.Data.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("Nucleus.Models.Credit", b =>
+                {
+                    b.HasOne("Nucleus.Models.Offer", "Offer")
+                        .WithOne("Credits")
+                        .HasForeignKey("Nucleus.Models.Credit", "OfferId");
+                });
+
+            modelBuilder.Entity("Nucleus.Models.Offer", b =>
+                {
+                    b.HasOne("Nucleus.Data.ApplicationUser", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId");
+
+                    b.HasOne("Nucleus.Models.Track", "Track")
+                        .WithMany()
+                        .HasForeignKey("TrackId");
+                });
+
+            modelBuilder.Entity("Nucleus.Models.Request", b =>
+                {
+                    b.HasOne("Nucleus.Models.Credit", "Credit")
+                        .WithMany()
+                        .HasForeignKey("CreditId");
+
+                    b.HasOne("Nucleus.Data.ApplicationUser", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId");
+
+                    b.HasOne("Nucleus.Models.Track", "Track")
+                        .WithMany()
+                        .HasForeignKey("TrackId");
+                });
+
             modelBuilder.Entity("Nucleus.Models.Tag", b =>
                 {
                     b.HasOne("Nucleus.Models.TagSet")
@@ -336,14 +464,15 @@ namespace Nucleus.Data.Migrations
 
             modelBuilder.Entity("Nucleus.Models.UserBadge", b =>
                 {
+                    b.HasOne("Nucleus.Data.ApplicationUser", "User")
+                        .WithMany("UserBadges")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Nucleus.Models.Badge", "Badge")
                         .WithMany("UserBadges")
                         .HasForeignKey("BadgeId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Nucleus.Data.ApplicationUser", "User")
-                        .WithMany("UserBadges")
-                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

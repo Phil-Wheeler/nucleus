@@ -45,7 +45,7 @@ namespace Nucleus
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext ctx)
         {
             if (env.IsDevelopment())
             {
@@ -64,7 +64,7 @@ namespace Nucleus
 
             app.UseMvc();
 
-            //DbSeeder.Seed(app);
+            //DbSeeder.Seed(ctx);
         }
     }
 }

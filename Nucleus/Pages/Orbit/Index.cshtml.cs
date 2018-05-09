@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nucleus.Data;
 using Nucleus.Models;
+using System.Security.Claims;
 
 namespace Nucleus.Pages.Orbit
 {
@@ -25,11 +26,11 @@ namespace Nucleus.Pages.Orbit
         public void OnGet()
         {
             Offers = _context.Offers
-                .Where(o => o.Member.UserName == User.Identity.Name)
+                .Where(o => o.Member == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 .ToList();
 
             Requests = _context.Requests
-                .Where(r => r.Member.UserName == User.Identity.Name)
+                .Where(r => r.Member == Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 .ToList();
         }
     }

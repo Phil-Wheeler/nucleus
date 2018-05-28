@@ -20,42 +20,10 @@
 
             <div class="row">
                 <div class="large-4 medium-4 columns">
-                    <section>
-                        <h3>Offers</h3>
-                        <hr>
-                        <form method="post" id="offerForm">
-                            <input type="hidden" asp-for="Input.Offer.Id">
-                            <div class="form-group">
-                                <label asp-for="Input.Offer.Title"></label>
-                                <input asp-for="Input.Offer.Title" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Input.Offer.Description"></label>
-                                <input asp-for="Input.Offer.Description" class="form-control" />
-                                <span asp-validation-for="Input.Offer.Description" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Input.Offer.Track"></label>
-                                <select asp-for="Input.Offer.Track">
-                                    @foreach(var track in Model.Tracks)
-                                    {
-                                        <option value="@track.Id">@track.Name</option>
-                                    }
-                                </select>
-                                <span asp-validation-for="Input.Offer.Track" class="text-danger"></span>
-                            </div>
-                            @Html.Partial("_credits", Model.Credit)
-
-
-                            <div class="form-group">
-                                <label asp-for="Input.Offer.Ends"></label>
-                                <input type="date" asp-for="Input.Offer.Ends" class="form-control" />
-                                <span asp-validation-for="Input.Offer.Ends" class="text-danger"></span>
-                            </div>
-                            <button type="submit" class="button small">Save</button>
-                        </form>
+                    <section id="">
                         <!--{"id":"9d35e885-daad-4a2e-e287-08d5b03a50f6","title":"Test offer","track":{"id":0,"name":"Testing"},"credits":{"id":0,"unit":4,"recurrence":2},"description":"Test description","isActive":false,"ends":"2018-04-30T00:00:00","member":"ee51ce9b-bb1f-4830-952b-1052c39c8776"}-->
                     </section>
+                    <section id="offers-content"></section>
                 </div>
                 <div class="large-6 medium-6 columns col-md-offset-2">
                     <section>
@@ -78,4 +46,10 @@
 
 @section Scripts {
     @await  Html.PartialAsync("_ValidationScriptsPartial")
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>
+
+        <script src="/jsx/offers.jsx"></script>
+
 }

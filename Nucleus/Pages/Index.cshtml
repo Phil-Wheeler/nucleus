@@ -1,12 +1,14 @@
-﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+﻿@page "/"
 
+<!-- <h1>Hello, world!</h1>
 
-<!-- Main -->
-<div id="main">
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" /> -->
+
+<HomeBanner />
+
+<div id="home">
 
     <!-- Section -->
     <section class="section-block style1">
@@ -102,18 +104,3 @@
     </section>
 
 </div>
-
-
-@section Banner
-    {
-    <!-- Banner -->
-    <section id="banner" class="banner">
-        <div class="header row">
-            <header>
-                <h1>Nucleus</h1>
-                <p class="h3 contrast">Mentoring &amp; Personal Development</p>
-            </header>
-            <a href="#main" class="button big scrolly">Learn More</a>
-        </div>
-    </section>
-}

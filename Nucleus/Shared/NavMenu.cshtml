@@ -1,0 +1,74 @@
+﻿
+
+
+    <nav data-sticky-container>
+        <div class="title-bar" data-sticky data-options="marginTop:0;" data-top-anchor="main:top">
+            <div class="title-bar-left">
+                <span class="title-bar-title">Nucleus</span>
+            </div>
+            <div class="title-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li>
+                        <a asp-page="/Account/Register">Register</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Account/Login">Log in</a>
+                    </li>
+                    <!--
+                    <li>
+                        <a href="#">Item 3</a>
+                        <ul class="menu">
+                            <li><a href="#">Item 2A</a></li>
+                            <li><a href="#">Item 2B</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Item 4</a></li>
+                    -->
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+
+@*
+
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Nucleus</a>
+    <button class="navbar-toggler" onclick=@ToggleNavMenu>
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class=@(collapseNavMenu ? "collapse" : null) onclick=@ToggleNavMenu>
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match=NavLinkMatch.All>
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+*@
+
+@functions {
+    bool collapseNavMenu = true;
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

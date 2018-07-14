@@ -14,7 +14,8 @@ namespace Nucleus
             var serviceProvider = new BrowserServiceProvider(services =>
             {
                 // Add any custom services here
-                services.AddSingleton<IRepository, PeopleRepository>();
+                services.Add(ServiceDescriptor.Singleton<AppState, AppState>());
+                services.Add(ServiceDescriptor.Singleton<ApiClient, ApiClient>());
             });
 
             new BrowserRenderer(serviceProvider).AddComponent<App>("app");

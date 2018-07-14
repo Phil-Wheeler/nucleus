@@ -4,7 +4,7 @@ using Nucleus.Models;
 
 namespace Nucleus.Data
 {
-    public class PeopleRepository : IRepository<ApplicationUser>
+/*    public class PeopleRepository : IRepository<ApplicationUser>
     {
         public ApplicationUser GetById(int Id)
         {
@@ -32,5 +32,5 @@ namespace Nucleus.Data
 
         public void Delete(ApplicationUser ApplicationUser)
         {}
-    }
+    }*/
 }

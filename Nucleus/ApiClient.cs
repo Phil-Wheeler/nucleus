@@ -10,7 +10,7 @@ namespace Nucleus
 {
     public class ApiClient
     {
-        const string BaseUrl = "https://conduit.productionready.io/api";
+        const string BaseUrl = "http://localhost:5001/api";
 
 
         private readonly HttpClient _httpClient;

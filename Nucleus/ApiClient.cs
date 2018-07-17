@@ -101,6 +101,7 @@ namespace Nucleus
             var authorFilter = author == null ? "" : $"author={author}&";
             var query = $"?{tagFilter}{authorFilter}limit=10&offset=0";
             var response = await _httpClient.GetJsonAsync<PostsResponse>($"{BaseUrl}{urlFragment}{query}");
+            //var response = await _httpClient.GetAsync($"{BaseUrl}{urlFragment}{query}");
             return response.posts;
         }
 

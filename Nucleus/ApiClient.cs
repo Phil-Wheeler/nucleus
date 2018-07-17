@@ -80,20 +80,20 @@ namespace Nucleus
             return await GetPostsAsync("/posts", null, null);
         }
 
-        public async Task<IEnumerable<Post>> GetPostsByTagAsync(string tag)
-        {
-            return await GetPostsAsync("/posts", tag, null);
-        }
+        // public async Task<IEnumerable<Post>> GetPostsByTagAsync(string tag)
+        // {
+        //     return await GetPostsAsync("/posts", tag, null);
+        // }
 
-        public async Task<IEnumerable<Post>> GetPostsByAuthorAsync(string author)
-        {
-            return await GetPostsAsync("/posts", null, author);
-        }
+        // public async Task<IEnumerable<Post>> GetPostsByAuthorAsync(string author)
+        // {
+        //     return await GetPostsAsync("/posts", null, author);
+        // }
 
-        public async Task<IEnumerable<Post>> GetPostFeedAsync()
-        {
-            return await GetPostsAsync("/posts/feed", null, null);
-        }
+        // public async Task<IEnumerable<Post>> GetPostFeedAsync()
+        // {
+        //     return await GetPostsAsync("/posts/feed", null, null);
+        // }
 
         async Task<IEnumerable<Post>> GetPostsAsync(string urlFragment, string tag, string author)
         {
@@ -101,7 +101,6 @@ namespace Nucleus
             var authorFilter = author == null ? "" : $"author={author}&";
             var query = $"?{tagFilter}{authorFilter}limit=10&offset=0";
             var response = await _httpClient.GetJsonAsync<PostsResponse>($"{BaseUrl}{urlFragment}{query}");
-            //var response = await _httpClient.GetAsync($"{BaseUrl}{urlFragment}{query}");
             return response.posts;
         }
 

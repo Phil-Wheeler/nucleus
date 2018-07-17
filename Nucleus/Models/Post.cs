@@ -12,8 +12,8 @@ namespace Nucleus.Models
         public DateTime Created { get; set; }
         public DateTime Accepted { get; set; }
         public DateTime Closed { get; set; } 
-        public UserModel Owner { get; set; }
-        public UserModel AcceptedBy { get; set; }
+        public Guid Owner { get; set; }
+        public Guid AcceptedBy { get; set; }
     }    
 
     public enum PostType { Offer, Comment, Request }

@@ -43,8 +43,8 @@ else
 
     protected override async Task OnInitAsync()
     {
-        posts = new List<Post>();
         posts = await api.GetPostsAsync();
+
         StateHasChanged();
     }
 }

@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using NucleusApi.Data;
+
+using NJsonSchema;
+using NSwag.AspNetCore;
 
 namespace NucleusApi
 {
@@ -46,7 +51,27 @@ namespace NucleusApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings => 
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+                settings.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Nucleus API";
+                    document.Info.Description = "Testing";
+                };
+            });
+            
+            var option = new RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+            app.UseRewriter(option);
+
             app.UseMvc();
+
+            
+
         }
     }
 }

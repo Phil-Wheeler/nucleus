@@ -80,20 +80,20 @@ namespace Nucleus
             return await GetPostsAsync("/posts", null, null);
         }
 
-        // public async Task<IEnumerable<Post>> GetPostsByTagAsync(string tag)
-        // {
-        //     return await GetPostsAsync("/posts", tag, null);
-        // }
+        public async Task<IEnumerable<Post>> GetPostsByTagAsync(string tag)
+        {
+            return await GetPostsAsync("/posts", tag, null);
+        }
 
-        // public async Task<IEnumerable<Post>> GetPostsByAuthorAsync(string author)
-        // {
-        //     return await GetPostsAsync("/posts", null, author);
-        // }
+        public async Task<IEnumerable<Post>> GetPostsByAuthorAsync(string author)
+        {
+            return await GetPostsAsync("/posts", null, author);
+        }
 
-        // public async Task<IEnumerable<Post>> GetPostFeedAsync()
-        // {
-        //     return await GetPostsAsync("/posts/feed", null, null);
-        // }
+        public async Task<IEnumerable<Post>> GetPostFeedAsync()
+        {
+            return await GetPostsAsync("/posts/feed", null, null);
+        }
 
         async Task<IEnumerable<Post>> GetPostsAsync(string urlFragment, string tag, string author)
         {

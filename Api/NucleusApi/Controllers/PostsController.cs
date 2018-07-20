@@ -25,14 +25,14 @@ namespace NucleusApi.Controllers
 
         // GET api/Posts
         [HttpGet]
-        public ActionResult<IEnumerable<Post>> Get()
+        public JsonResult Get()
         {
             if (_context.Posts.Count() == 0)
             {
-                _context.Posts.Add(new Post { Id = Guid.NewGuid(), Title = "Test Post" });
+                _context.Posts.Add(new Post { Id = Guid.NewGuid(), Title = "Test Post", Owner = Guid.NewGuid(), PostType = PostType.Request, Created = DateTime.Now });
                 _context.SaveChanges();
             }
-            return _context.Posts;
+            return new JsonResult(new { posts = _context.Posts });// _context.Posts;
         }
 
         // GET api/Posts/5

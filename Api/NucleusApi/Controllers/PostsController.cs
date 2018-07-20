@@ -29,7 +29,7 @@ namespace NucleusApi.Controllers
         {
             if (_context.Posts.Count() == 0)
             {
-                _context.Posts.Add(new Post { Id = Guid.NewGuid(), Title = "Test Post" });
+                _context.Posts.Add(new Post { Id = Guid.NewGuid().ToString(), Title = "Test Post" });
                 _context.SaveChanges();
             }
             return _context.Posts;

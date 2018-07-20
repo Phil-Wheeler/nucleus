@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using NucleusApi.Data;
+using NucleusApi.Models;
 
 using NJsonSchema;
 using NSwag.AspNetCore;
@@ -37,6 +38,12 @@ namespace NucleusApi
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
+
+            services.Configure<Settings>(options => 
+            {
+                options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,14 +1,16 @@
 using System;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace NucleusApi.Models
 {
     public class Post
     {
-        public Guid Id { get; set; }
+        [BsonId]
+        public string Id { get; set; }
         public PostType PostType { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime Created => DateTime.Now;
         public DateTime Accepted { get; set; }
         public DateTime Closed { get; set; } 
         public Guid Owner { get; set; }

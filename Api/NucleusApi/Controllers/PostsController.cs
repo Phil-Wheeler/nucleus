@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NucleusApi.Models;
 using NucleusApi.Data;
 
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace NucleusApi.Controllers
 {
@@ -17,9 +20,9 @@ namespace NucleusApi.Controllers
         private readonly ApiContext _context;
 
 
-        public PostsController(ApiContext ApiContext)
+        public PostsController(IOptions<Settings> Settings)
         {
-            _context = ApiContext;
+            _context = new ApiContext(Settings);
         }
 
 
@@ -27,25 +30,28 @@ namespace NucleusApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Post>> Get()
         {
-            if (_context.Posts.Count() == 0)
+            if (_context.Posts.CountDocuments(new BsonDocument()) == 0)
             {
-                _context.Posts.Add(new Post { Id = Guid.NewGuid().ToString(), Title = "Test Post" });
-                _context.SaveChanges();
+                _context.Posts.InsertOne(new Post { Id = Guid.NewGuid(), Title = "Test Post", Owner = Guid.NewGuid() });
             }
-            return _context.Posts;
+            
+            var result = _context.Posts.Find(_ => true).ToList();
+            return result;
         }
 
         // GET api/Posts/5
         [HttpGet("{id}")]
-        public ActionResult<Post> Get(Guid id)
+        public ActionResult<Post> Get(string id)
         {
-            var result = _context.Posts.Find(id);
+            ObjectId internalId = GetInternalId(id);
+
+            var result = _context.Posts.Find(x => x.InternalId == internalId || x.Id == Guid.Parse(id));
 
             if (result == null)
             {
                 return NotFound();
             }
-            return result;
+            return result.First();
         }
 
         // POST api/Posts
@@ -64,6 +70,16 @@ namespace NucleusApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+
+        private ObjectId GetInternalId(string id)
+        {
+            ObjectId internalId;
+            if (!ObjectId.TryParse(id, out internalId))
+                internalId = ObjectId.Empty;
+
+            return internalId;
         }
     }
 }

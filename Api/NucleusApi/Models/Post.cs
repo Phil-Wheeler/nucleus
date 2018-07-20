@@ -1,4 +1,5 @@
 using System;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace NucleusApi.Models
@@ -6,7 +7,9 @@ namespace NucleusApi.Models
     public class Post
     {
         [BsonId]
-        public string Id { get; set; }
+        public ObjectId InternalId { get; set; }
+
+        public Guid Id { get; set; }
         public PostType PostType { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }

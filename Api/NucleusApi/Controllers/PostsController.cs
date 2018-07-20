@@ -56,8 +56,10 @@ namespace NucleusApi.Controllers
 
         // POST api/Posts
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Post post)
         {
+            post.Id = Guid.NewGuid();
+            _context.Posts.InsertOne(post);
         }
 
         // PUT api/Posts/5

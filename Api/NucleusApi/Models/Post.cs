@@ -20,5 +20,5 @@ namespace NucleusApi.Models
         public Guid AcceptedBy { get; set; }
     }    
 
-    public enum PostType { Offer, Comment, Request }
+    public enum PostType { Offer, Request, Comment }
 }

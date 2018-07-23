@@ -6,9 +6,46 @@
 
 <div class="inner grid-container">
 
-    <h1>People</h1>
 
-    <p>View .</p>
+    <div class="grid-x grid-padding-x">
+
+        <h1>People</h1>
+
+        <p>
+            Have some time to donate? Just keen for a talk? Search here for others who 
+            are moving in the same orbit as you and want to talk about stuff.
+        </p>
+        
+        
+        <form>
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+                <div class="medium-6 cell">
+                    <label>Title
+                        <input type="text" value="@post.Title" name="Title" placeholder="search for posts" />
+                    </label>
+                </div>
+                <div class="medium-6 cell">
+                    <label>Type
+                        <select name="PostType">
+                            <option value="0">Offer</option>
+                            <option value="1">Request</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="cell">
+                    <label>Message
+                        <textarea name="Body">@post.Body</textarea>
+                    </label>
+                </div>
+                <div class="cell">
+                    <input type="button" class="button" onclick="@SavePost" value="Save" />
+                </div>
+            </div>
+        </div>
+        </form>
+
+    </div>
 
     <div class="grid-x grid-margin-x">
         <div class="cell large-6">
@@ -16,7 +53,7 @@
 
             @if (posts == null)
             {
-                <p><em>Loading...</em></p>
+                <p><em>Retrieving a list&hellip;</em></p>
             }
             else
             {
@@ -46,6 +83,14 @@
         </div>
         <div class="cell large-6">
             <h3>Posts</h3>
+
+            <div class="input-group">
+                <input type="search" class="input-group-field" value="@searchTerms" placeholder="query" />
+                <div class="input-group-button">
+                    <input type="button" class="button" onclick="@SearchClick" value="Search" />
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -54,6 +99,8 @@
 
 @functions {
     IEnumerable<Post> posts;
+    string searchTerms = "";
+    Post post = new Post();
     //IEnumerable<string> tags;
 
     protected override async Task OnInitAsync()
@@ -61,5 +108,15 @@
         posts = await api.GetPostsAsync();
 
         StateHasChanged();
+    }
+
+    async void SearchClick()
+    {
+        posts = await api.GetPostsAsync();
+    }
+
+    async void SavePost()
+    {
+        await api.SavePostAsync(post);
     }
 }

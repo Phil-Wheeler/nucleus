@@ -28,15 +28,22 @@ namespace NucleusApi.Controllers
 
         // GET api/Posts
         [HttpGet]
-        public ActionResult<IEnumerable<Post>> Get()
+        public JsonResult Get()
         {
             if (_context.Posts.CountDocuments(new BsonDocument()) == 0)
             {
+<<<<<<< HEAD
                 _context.Posts.InsertOne(new Post { Id = Guid.NewGuid(), Title = "Test Post", Owner = Guid.NewGuid() });
             }
             
             var result = _context.Posts.Find(_ => true).ToList();
             return result;
+=======
+                _context.Posts.Add(new Post { Id = Guid.NewGuid(), Title = "Test Post", Owner = Guid.NewGuid(), PostType = PostType.Request, Created = DateTime.Now });
+                _context.SaveChanges();
+            }
+            return new JsonResult(new { posts = _context.Posts });// _context.Posts;
+>>>>>>> e9c1b4e3645272b3f77018da4041525a969eea11
         }
 
         // GET api/Posts/5

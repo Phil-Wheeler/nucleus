@@ -22,12 +22,12 @@
             <div class="grid-x grid-padding-x">
                 <div class="medium-6 cell">
                     <label>Title
-                        <input type="text" value="@post.Title" name="Title" placeholder="search for posts" />
+                        <input type="text" bind="@post.Title" name="Title" placeholder="search for posts" />
                     </label>
                 </div>
                 <div class="medium-6 cell">
                     <label>Type
-                        <select name="PostType">
+                        <select name="PostType" bind="@post.PostType">
                             <option value="0">Offer</option>
                             <option value="1">Request</option>
                         </select>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="cell">
                     <label>Message
-                        <textarea name="Body">@post.Body</textarea>
+                        <textarea name="Body" bind="@post.Body"></textarea>
                     </label>
                 </div>
                 <div class="cell">
@@ -117,6 +117,7 @@
 
     async void SavePost()
     {
+        StateHasChanged();
         await api.SavePostAsync(post);
     }
 }

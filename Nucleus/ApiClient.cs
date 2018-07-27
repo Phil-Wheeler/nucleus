@@ -124,7 +124,7 @@ namespace Nucleus
                 post = post
             };
 
-            if (String.IsNullOrEmpty(post.Id.ToString()))
+            if (String.IsNullOrEmpty(post.Id.ToString()) || post.Id == Guid.Empty)
                 return await _httpClient.PostJsonAsync<PostResponse>(url, post);
             else
                 return await _httpClient.PutJsonAsync<PostResponse>($"{url}/{post.Id}", content);

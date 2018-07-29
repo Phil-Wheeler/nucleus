@@ -100,8 +100,8 @@ namespace Nucleus
             var tagFilter = tag == null ? "" : $"tag={tag}&";
             var authorFilter = author == null ? "" : $"author={author}&";
             var query = $"?{tagFilter}{authorFilter}limit=10&offset=0";
-            var response = await _httpClient.GetJsonAsync<PostsResponse>($"{BaseUrl}{urlFragment}{query}");
-            return response.posts;
+            var response = await _httpClient.GetJsonAsync<IEnumerable<Post>>($"{BaseUrl}{urlFragment}{query}");
+            return response;
         }
 
         public async Task<Post> GetPostAsync(string slug)
@@ -124,7 +124,7 @@ namespace Nucleus
                 post = post
             };
 
-            if (String.IsNullOrEmpty(post.Id.ToString()))
+            if (String.IsNullOrEmpty(post.Id.ToString()) || post.Id == Guid.Empty)
                 return await _httpClient.PostJsonAsync<PostResponse>(url, post);
             else
                 return await _httpClient.PutJsonAsync<PostResponse>($"{url}/{post.Id}", content);

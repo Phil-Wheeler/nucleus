@@ -47,20 +47,6 @@ p { font: 300 1.1rem/1.100 'Scope One', serif; }
 
 .banner::before { background-color: rgba(0, 0, 0, 1); content: ''; display: block; height: 100%; left: 0; opacity: 0.65; position: absolute; top: 0; transition-delay: 1.25s; width: 100%; z-index: 1; }
 
-.banner > .row {
-    transform: scale(1.0);
-    transition: opacity 1s ease, transform 1s ease;
-    opacity: 1;
-    position: relative;
-    z-index: 2;
-}
-.banner header { margin-bottom: 4rem; }
-.banner .header { opacity: 1; position: relative; transition: opacity 1s ease, transform 1s ease; z-index: 1; }
-
-.business-case { display: flex; }
-.section-block { padding: 6rem 0 4rem; position: relative; }
-.inner { margin: 0 auto; width: 80%; }
-
 header { align-items: center; display: flex; flex-flow: column wrap; }
 
 
@@ -75,6 +61,27 @@ nav .title-bar:not(.is-anchored) { background: rgba(0, 0, 0, 0.75); }
 aside { margin-left: 2rem; order: 1; }
 aside nav { background: rgba(0, 0, 0, 0.075); border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 4px; padding: 0.75em 1em; }
 
+
+
+/* ====== STYLED SUB-ELEMENTS ======*/
+.banner > .row {
+    transform: scale(1.0);
+    transition: opacity 1s ease, transform 1s ease;
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+.banner header { margin-bottom: 4rem; }
+.banner .header { opacity: 1; position: relative; transition: opacity 1s ease, transform 1s ease; z-index: 1; }
+
+.business-case { display: flex; }
+.section-block { padding: 6rem 0 4rem; position: relative; }
+.inner { margin: 0 auto; width: 80%; }
+
+.post-stats li { border-top: 1px solid rgba(0, 0, 0, 0.15); color: #999; font-family: 'Scope One'; padding: 0.5em 0; }
+.post-stats li:first-child { border-top: none; }
+
+.stat-label { border-radius: 3px; float: right; min-width: 3rem; text-align: center; padding: 0.45em 1rem; }
 
 /* ====== MEDIA ELEMENTS ====== */
 

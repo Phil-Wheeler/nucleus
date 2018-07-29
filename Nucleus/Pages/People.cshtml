@@ -1,5 +1,6 @@
 @page "/people"
 @using Nucleus.Models
+@using Microsoft.AspNetCore.Blazor.Browser.Interop
 @inject ApiClient api
 @inject HttpClient Http
 
@@ -39,6 +40,11 @@
                     </label>
                 </div>
                 <div class="cell">
+                    <label>Show this post until
+                        <input type="text" class="flatpickr" bind="@post.Closed" id="post-cutoff" />
+                    </label>
+                </div>
+                <div class="cell">
                     <input type="button" class="button" onclick="@SavePost" value="Save" />
                 </div>
             </div>
@@ -57,27 +63,10 @@
             }
             else
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Temp. (C)</th>
-                            <th>Temp. (F)</th>
-                            <th>Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var post in posts)
-                        {
-                            <tr id="@post.Id">
-                                <td>@post.Title</td>
-                                <td>@post.Created.ToShortDateString()</td>
-                                <td></td>
-                                <td>@post.Owner</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <ul class="no-bullet post-stats">
+                    <li>Your offers: <span class="label stat-label">@summary.Offers.Count()</span></li>
+                    <li>Your requests: <span class="label stat-label">@summary.Requests.Count()</span> </li>
+                </ul>
             }
 
         </div>
@@ -100,14 +89,29 @@
 @functions {
     IEnumerable<Post> posts;
     string searchTerms = "";
-    Post post = new Post();
+    Post post = new Post() { Closed = DateTime.Today };
+    PostSummary summary;
     //IEnumerable<string> tags;
 
     protected override async Task OnInitAsync()
     {
         posts = await api.GetPostsAsync();
+        MapPostSummary();
 
+        if (RegisteredFunction.Invoke<bool>("dp"))
+        {
+            Console.WriteLine("date picker instantiated");
+        }
         StateHasChanged();
+    }
+
+    private void MapPostSummary()
+    {
+        summary = new PostSummary() 
+        {
+            Offers = posts.Where(p => p.PostType == Nucleus.Models.PostType.Offer).ToArray(),
+            Requests = posts.Where(p => p.PostType == Nucleus.Models.PostType.Request).ToArray()
+        };
     }
 
     async void SearchClick()
@@ -119,5 +123,11 @@
     {
         StateHasChanged();
         await api.SavePostAsync(post);
+    }
+
+    class PostSummary
+    {
+        public Post[] Offers { get; set; }
+        public Post[] Requests { get; set; }
     }
 }

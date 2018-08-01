@@ -12,10 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
+
 using NucleusApi.Data;
 using NucleusApi.Models;
-
 using NJsonSchema;
 using NSwag.AspNetCore;
 

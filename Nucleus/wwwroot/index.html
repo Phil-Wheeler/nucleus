@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Nucleus</title>
+    <base href="/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.1/dist/css/foundation.min.css" integrity="sha256-5B4hbMU9OJUxbUEvafv7D53WeubxzKZBqPfQNMh6Iw8= sha384-n7bC26QCtUZ5T9AHXtZrl7FcPQL5BkGi/JXbs6FVnUexlfniI0xH42VZxa4OxPD1 sha512-AnfTqiknRiK8BIwGSIegiguDX0838ShwXn8bEmTGPb31OPyYMzBbtnuekO6qSFzP/J8a0bMe4V6FcfM7n/YONQ==" crossorigin="anonymous" />
+    <link href="css/nucleus.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+</head>
+<body>
+    <app>Loading...</app>
+
+    <script type="blazor-boot"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.1/dist/js/foundation.min.js" 
+        integrity="sha256-wTcu2ZVTDMsVW8yIi4MAEPKsX04ZNW4Ahr0xZtFaBOA= sha384-jeQsPA9S1co5+XspMVKVhtst1k8mzjk63i2h2rtMEpZBOVE5i22Gdjj8IF7x8e1R sha512-th5Nh7lAgv9W5pWVbKvGpb5o0NUA/ozLF7f9uxboNqVyn5DG/azSVE8k0lKR2w7Ww648/Wnb4CsgPO4SZ7OdTw==" 
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/plugins/foundation.sticky.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/plugins/foundation.util.triggers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/plugins/foundation.util.mediaQuery.min.js"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/foundation.min.js" integrity="sha256-G6jsRyH1fxbsvFIXSCuwYmI1aIDYBa28xscrvmYjJy0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+    <script>
+        $(function () {
+            $(document).foundation();
+        
+            $('.title-bar').on('sticky.zf.stuckto:top', function () {
+                $(this).addClass('shrink');
+            }).on('sticky.zf.unstuckfrom:top', function () {
+                $(this).removeClass('shrink');
+            });
+        })
+    </script>
+    <script src="/scripts/ui.js"></script>
+</body>
+</html>

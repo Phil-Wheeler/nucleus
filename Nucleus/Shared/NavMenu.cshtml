@@ -1,0 +1,42 @@
+﻿
+
+
+    <nav data-sticky-container>
+        <div class="title-bar" data-sticky data-options="marginTop:0;">
+            <div class="title-bar-left">
+                <span class="title-bar-title">Nucleus</span>
+            </div>
+            <div class="title-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li>
+                        <a asp-page="/Account/Register">Register</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Account/Login">Log in</a>
+                    </li>
+                    <!--
+                    <li>
+                        <a href="#">Item 3</a>
+                        <ul class="menu">
+                            <li><a href="#">Item 2A</a></li>
+                            <li><a href="#">Item 2B</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Item 4</a></li>
+                    -->
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>
+
+
+@functions {
+    bool collapseNavMenu = true;
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

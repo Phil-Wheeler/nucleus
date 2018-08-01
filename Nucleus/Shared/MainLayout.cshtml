@@ -1,0 +1,12 @@
+@inherits BlazorLayoutComponent
+
+
+<NavMenu />
+
+<div id="main" class="container body-content">
+    @Body
+    <hr />
+    <footer>
+        <p>&copy; @System.DateTime.Now.Year &ndash; <a href="https://systemic.nz" target="_blank">Systemic</a></p>
+    </footer>
+</div>

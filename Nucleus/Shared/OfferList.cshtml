@@ -1,0 +1,26 @@
+
+@inject ApiClient api
+@inject HttpClient Http
+
+<div>
+    <h3>offers</h3>
+</div>
+
+
+@functions {
+    [Parameter]
+    string Title { get; set; }
+    
+    //IEnumerable<Offer> offers;
+
+    protected override async Task OnInitAsync()
+    {
+        //var posts = await api.GetPostsAsync();
+        //StateHasChanged();
+    }
+
+    class Offer
+    {
+        public Guid Id { get; set; }
+    }
+}

@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Blazor.Browser.Rendering;
+using Microsoft.AspNetCore.Blazor.Browser.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
+using Nucleus.Data;
 
 namespace Nucleus
 {
     public class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
+            var serviceProvider = new BrowserServiceProvider(services =>
+            {
+                // Add any custom services here
+                services.Add(ServiceDescriptor.Singleton<AppState, AppState>());
+                services.Add(ServiceDescriptor.Singleton<ApiClient, ApiClient>());
+            });
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+            new BrowserRenderer(serviceProvider).AddComponent<App>("app");
+        }
     }
 }

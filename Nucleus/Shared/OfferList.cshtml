@@ -4,10 +4,6 @@
 
 <div>
     <h3>offers</h3>
-    @foreach(var offer in offers)
-    {
-        <p>@offer.Id</p>
-    }
 </div>
 
 
@@ -15,7 +11,7 @@
     [Parameter]
     string Title { get; set; }
     
-    IEnumerable<Offer> offers;
+    //IEnumerable<Offer> offers;
 
     protected override async Task OnInitAsync()
     {
